@@ -11,7 +11,11 @@ else
     if [[ -z $A ]]
     then
       A="$($PSQL "select * from elements where name ilike '$1'")"
-      
+      if [[ -z $A ]]
+      then
+        echo "I could not find that element in the database."
+        exit
+      fi
     fi
   fi
   echo "$A" | while IFS='|' read an s e
